@@ -16,12 +16,22 @@ public:
     		col -= 65;
     		tiles[col][row] = element;
     	} else {
-    		std::cout << "Invalid Column" << std::endl;
+    		std::cout << "Invalid Column Input!" << std::endl;
     	}
     	return;
     }
     T getTileAt(char col, int row){
-
+    	T temp;
+    	if ( col >= 97 && col <= 122 ) {
+    		col -= 97;
+    		temp = tiles[col][row];
+    	} else if ( col >= 65 && col <= 90 ) {
+    		col -= 65;
+    		temp = tiles[col][row];
+    	} else {
+    		std::cout << "Invalid Column Input!" << std::endl;
+    	}
+    	return temp;
     }
     vector<T> getAdjacent(char col, int row){	 // up to 4 in the list
 
