@@ -8,8 +8,17 @@ public:
 			tiles[i] = new T[cols];
 		}
 	}
-    placeTile(char col, int row, T element){
-
+    void placeTile(char col, int row, T element){
+    	if ( col >= 97 && col <= 122 ) {
+    		col -= 97;
+    		tiles[col][row] = element;
+    	} else if ( col >= 65 && col <= 90 ) {
+    		col -= 65;
+    		tiles[col][row] = element;
+    	} else {
+    		std::cout << "Invalid Column" << std::endl;
+    	}
+    	return;
     }
     T getTileAt(char col, int row){
 
