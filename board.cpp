@@ -2,8 +2,6 @@
 #include <vector>
 #include "board.h"
 
-
-
 int main () {
 	char row = 'a';
 	char row2 = 'b';
@@ -19,6 +17,8 @@ int main () {
 	for (int i = 0; i < 4; i++) {
 		std::cout << agent[i] << std::endl;
 	}
+	Group<int> group;
+	std::cout << group.getDummy() << std::endl;
 	
 	return 0;
 }
