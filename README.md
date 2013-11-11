@@ -1,8 +1,10 @@
-# ABC BoardGame #
+# ABC++ BoardGame #
 
 ### Description ###
 
-C++ Class project.
+Simple Board Game Written in C++.
+
+It is Fun++!
 
 ### To Do ###
 

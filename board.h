@@ -67,4 +67,10 @@ template<class T> vector<T> Board<T>::getAdjacent(char col, int row){	 // up to 
 	return result;
 }
 
-
+class Group {
+	unsigned char symbol;
+	std::string name;
+	unsigned int size;
+public:
+	T getDummy();
+};
