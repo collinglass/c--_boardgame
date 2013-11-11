@@ -7,62 +7,62 @@ template <class T>
 class Board {
 	T** tiles;
 public:
-	Board(int cols, int rows);
-    void placeTile(char col, int row, T element);
-    T getTileAt(char col, int row);
-    vector<T> getAdjacent(char col, int row);
+	Board(int rows, int cols);
+    void placeTile(char row, int col, T element);
+    T getTileAt(char row, int col);
+    vector<T> getAdjacent(char row, int col);
 };
 
-template<class T> Board<T>::Board(int cols, int rows){
+template<class T> Board<T>::Board(int rows, int cols){
 	tiles = new T*[rows];
 	for (char i = 0; i < rows; i++ ) {
 		tiles[i] = new T[cols];
 	}
 }
 
-template<class T> void Board<T>::placeTile(char col, int row, T element){
-   	if ( col >= 97 && col <= 122 ) {
-   		col -= 97;
-   		tiles[col][row] = element;
-   	} else if ( col >= 65 && col <= 90 ) {
-   		col -= 65;
-   		tiles[col][row] = element;
+template<class T> void Board<T>::placeTile(char row, int col, T element){
+   	if ( row >= 97 && row <= 122 ) {
+   		row -= 97;
+   		tiles[row][col] = element;
+   	} else if ( row >= 65 && row <= 90 ) {
+   		row -= 65;
+   		tiles[row][col] = element;
    	} else {
-   		std::cout << "Invalid Column Input!" << std::endl;
+   		std::cout << "Invalid Row Input!" << std::endl;
    	}
    	return;
 }
 
-template<class T> T Board<T>::getTileAt(char col, int row){
+template<class T> T Board<T>::getTileAt(char row, int col){
 	T result;
-	if ( col >= 97 && col <= 122 ) {
-		col -= 97;
-   		result = tiles[col][row];
-	} else if ( col >= 65 && col <= 90 ) {
-		col -= 65;
-		result = tiles[col][row];
+	if ( row >= 97 && row <= 122 ) {
+		row -= 97;
+   		result = tiles[row][col];
+	} else if ( row >= 65 && row <= 90 ) {
+		row -= 65;
+		result = tiles[row][col];
 	} else {
-		std::cout << "Invalid Column Input!" << std::endl;
+		std::cout << "Invalid Row Input!" << std::endl;
 	}
 	return result;
 }
 
-template<class T> vector<T> Board<T>::getAdjacent(char col, int row){	 // up to 4 in the list
+template<class T> vector<T> Board<T>::getAdjacent(char row, int col){	 // up to 4 in the list
 	vector<T> result;
-	if ( col >= 97 && col <= 122 ) {
-		col -= 97;
-		result.push_back(tiles[col-1][row]);
-		result.push_back(tiles[col+1][row]);
-		result.push_back(tiles[col][row-1]);
-		result.push_back(tiles[col][row+1]);
-	} else if ( col >= 65 && col <= 90 ) {
-		col -= 65;
-		result.push_back(tiles[col-1][row]);
-		result.push_back(tiles[col+1][row]);
-		result.push_back(tiles[col][row-1]);
-		result.push_back(tiles[col][row+1]);
+	if ( row >= 97 && row <= 122 ) {
+		row -= 97;
+		result.push_back(tiles[row-1][col]);
+		result.push_back(tiles[row+1][col]);
+		result.push_back(tiles[row][col-1]);
+		result.push_back(tiles[row][col+1]);
+	} else if ( row >= 65 && row <= 90 ) {
+		row -= 65;
+		result.push_back(tiles[row-1][col]);
+		result.push_back(tiles[row+1][col]);
+		result.push_back(tiles[row][col-1]);
+		result.push_back(tiles[row][col+1]);
 	} else {
-    		std::cout << "Invalid Column Input!" << std::endl;
+    		std::cout << "Invalid Row Input!" << std::endl;
 	}
 	return result;
 }
