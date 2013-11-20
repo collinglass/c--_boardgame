@@ -1,85 +1,84 @@
 #include <vector>
 #include <iostream>
 
-using std::vector;
+using namespace std;
 
-template <class T>
+template<class T>
 class Board {
 	T** tiles;
+	int rows;
+	int cols;
 public:
 	Board(int rows, int cols);
-    void placeTile(char row, int col, T element);
-    T getTileAt(char row, int col);
-    vector<T> getAdjacent(char row, int col);
+	void placeTile(char row, int col, T element);
+	void getTileAt(T& tile, char row, int col);
+	vector<T> getAdjacent(char row, int col);
+	void printBoard();
 };
 
-template<class T> Board<T>::Board(int rows, int cols){
-	tiles = new T*[rows];
-	for (char i = 0; i < rows; i++ ) {
-		tiles[i] = new T[cols];
+template<class T> Board<T>::Board(int _rows, int _cols) :
+		rows(_rows), cols(_cols) {
+	tiles = new T*[_rows];
+	for (int i = 0; i < _rows; i++) {
+		tiles[i] = new T[_cols];
+		T* element = &tiles[i][0];
+		for (int j = 0; j < _cols; j++) {
+			*element = 0;
+			element++;
+		}
 	}
 }
 
-template<class T> void Board<T>::placeTile(char row, int col, T element){
-   	if ( row >= 97 && row <= 122 ) {
-   		row -= 97;
-   		tiles[row][col] = element;
-   	} else if ( row >= 65 && row <= 90 ) {
-   		row -= 65;
-   		tiles[row][col] = element;
-   	} else {
-   		std::cout << "Invalid Row Input!" << std::endl;
-   	}
-   	return;
-}
-
-template<class T> T Board<T>::getTileAt(char row, int col){
-	T result;
-	if ( row >= 97 && row <= 122 ) {
+template<class T> void Board<T>::placeTile(char row, int col, T element) {
+	if (static_cast<int>(row) >= 97 && static_cast<int>(row) <= 122) {
 		row -= 97;
-   		result = tiles[row][col];
-	} else if ( row >= 65 && row <= 90 ) {
-		row -= 65;
-		result = tiles[row][col];
+		tiles[static_cast<int>(row)][col] = element;
 	} else {
 		std::cout << "Invalid Row Input!" << std::endl;
 	}
-	return result;
 }
 
-template<class T> vector<T> Board<T>::getAdjacent(char row, int col){	 // up to 4 in the list
-	vector<T> result;
-	if ( row >= 97 && row <= 122 ) {
+template<class T> void Board<T>::getTileAt(T& tile, char row, int col) {
+	if (static_cast<int>(row) >= 97 && static_cast<int>(row) <= 122) {
 		row -= 97;
-		result.push_back(tiles[row-1][col]);
-		result.push_back(tiles[row+1][col]);
-		result.push_back(tiles[row][col-1]);
-		result.push_back(tiles[row][col+1]);
-	} else if ( row >= 65 && row <= 90 ) {
-		row -= 65;
-		result.push_back(tiles[row-1][col]);
-		result.push_back(tiles[row+1][col]);
-		result.push_back(tiles[row][col-1]);
-		result.push_back(tiles[row][col+1]);
+		tile = tiles[static_cast<int>(row)][col];
 	} else {
-    		std::cout << "Invalid Row Input!" << std::endl;
+		tile = 0;
+	}
+}
+
+template<class T> vector<T> Board<T>::getAdjacent(char row, int col) { // up to 4 in the list
+	vector<T> result;
+	if (static_cast<int>(row) >= 97 && static_cast<int>(row) <= 122) {
+		row -= 97;
+
+		// must add fail safe mechanism for edges
+		if (row - 1 >= 0) {
+			result.push_back(tiles[row - 1][col]); // north
+		}
+		if (row + 1 < rows) {
+			result.push_back(tiles[row + 1][col]); // south
+		}
+		if (col - 1 >= 0) {
+			result.push_back(tiles[row][col - 1]); // west
+		}
+		if (col + 1 < cols) {
+			result.push_back(tiles[row][col + 1]); // east
+		}
+	} else {
+		cout << "Invalid Row Input!" << endl;
 	}
 	return result;
 }
 
-template <class T>
-class Group {
-	T symbol;
-	std::string name;
-	unsigned int size;
-	static unsigned int counter;
-public:
-	T getDummy();
-};
+template<class T> void Board<T>::printBoard() {
+	T tile;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			getTileAt(tile, rows + 97, cols);
+			cout << setw(5) << tile << " ";
+		}
+		cout << endl;
+	}
 
-template<class T> unsigned int Group<T>::counter = 1;
-
-template<class T> T Group<T>::getDummy(){
-	symbol = (unsigned char)counter;
-	return symbol;
 }

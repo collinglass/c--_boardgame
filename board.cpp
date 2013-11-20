@@ -1,24 +1,65 @@
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include "board.h"
+#include "group.h"
 
-int main () {
-	char row = 'a';
-	char row2 = 'b';
-	char row3 = 'c';
-	Board<int> board(10,20);
-	board.placeTile(row, 10, 17);
-	board.placeTile(row2, 10, 18);
-	board.placeTile(row3, 10, 19);
-	board.placeTile(row2, 9, 20);
-	board.placeTile(row2, 11, 21);
-	std::cout << board.getTileAt(row,10) << std::endl;
-	vector<int> agent = board.getAdjacent(row2,10);
-	for (int i = 0; i < 4; i++) {
-		std::cout << agent[i] << std::endl;
+int main() {
+
+	cout << static_cast<int>('a') << " " << static_cast<int>('z') << endl;
+	int index = 1;
+	const int numRows = 5;
+	const int numCols = 5;
+	char rows[5] = { 'a', 'b', 'c', 'd', 'e' };
+	int result = 0;
+
+	// create blank board
+	Board<int> board(numRows, numCols);
+
+	// print out blank board
+	cout << "Blank Board" << endl;
+	board.printBoard();
+	/*for (int i = 0; i < numRows; i++) {
+	 for (int j = 0; j < numCols; j++) {
+	 board.getTileAt(result, i + 97, j);
+	 cout << setw(4) << result << " ";
+	 }
+	 cout << endl;
+	 }*/
+
+	// initialize board with indices 0 to (numRow - 1)(numCol - 1)
+	for (int i = 0; i < numRows; i++) {
+		for (int j = 0; j < numCols; j++) {
+			board.placeTile(i + 97, j, index);
+			index++;
+		}
 	}
+
+	cout << endl;
+
+	// print initialized board
+	cout << endl << "Initialized Board" << endl;
+	board.printBoard();
+	/*for (int i = 0; i < numRows; i++) {
+	 for (int j = 0; j < numCols; j++) {
+	 board.getTileAt(result, i + 97, j);
+	 cout << setw(5) << result << " ";
+	 }
+	 cout << endl;
+	 }*/
+
+	cout << endl;
+
+	// get adjacency vector for tile at [3,3]
+	cout << "Adjacency vector for tile at [3,3]" << endl;
+	vector<int> agent = board.getAdjacent(rows[2], 2);
+	for (int i = 0; i < agent.size(); i++) {
+		cout << setw(5) << agent[i] << endl;
+	}
+
+	cout << endl;
+
+	// getting dummy from group
 	Group<int> group;
-	std::cout << group.getDummy() << std::endl;
-	
-	return 0;
+	cout << "Dummy: " << group.getDummy() << endl;
 }

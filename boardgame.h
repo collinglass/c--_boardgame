@@ -1,4 +1,7 @@
 #include "board.h"
+#include "group.h"
+#include <iostream>
+using namespace std;
 
 template <class T>
 class BoardGame {
@@ -7,7 +10,8 @@ class BoardGame {
 	T tile;
 public:
 	BoardGame::BoardGame(T symbol);
-	void playAt(char row, char col);
+	BoardGame::BoardGame(char row, int col, T _tile);
+	void playAt(char row, int col);
 };
 
 template<class T> BoardGame<T>::BoardGame(char row, int col, T _tile) {
@@ -15,9 +19,10 @@ template<class T> BoardGame<T>::BoardGame(char row, int col, T _tile) {
 	board(row,col);
 }
 
-template<class T> void BoardGame<T>::playAt(char row, char col) {
+template<class T> void BoardGame<T>::playAt(char row, int col) {
 	if ( board.getTileAt(row,col) == 0 ) {
-		Group* group = new Group<tile>;
+		Group<T>* group = new Group<T>;
+
 		// add to mapT
 		T groupT = group->getDummy();
 		board.placeTile(row,col, groupT);
