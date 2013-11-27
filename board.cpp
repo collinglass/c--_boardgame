@@ -5,12 +5,15 @@
 #include "group.h"
 
 int main() {
-	int numPlayers = 1;
+	int numPlayers;
+	int playerTurn = 1;
 	bool isFinished = false;
 	bool playAgain = true;
 	int numRows;
+	char tileRow;
 	int numCols;
-	string continueResponse;
+	int tileCol;
+	int continueResponse = 0;
 
 	cout << "Welcome to the C++ Board Game!!" << endl << endl;
 
@@ -20,37 +23,58 @@ int main() {
 		cout << "Enter number of players: ";
 		cin >> numPlayers;
 		cout << numPlayers;
-
 		cout << endl
 				<< "Enter dimensions of the board, separated by spaces (rows cols): ";
 		cin >> numRows >> numCols;
 		cout << numRows << " " << numCols << endl;
+
+		Board<char> board(numRows, numCols);
+		board.printBoard();
+
 		//start player's turn
+		while (!isFinished) {
+			cout << "It's your turn, Player " << playerTurn
+					<< "! Enter a tile coordinate (Alpha_Lower Numeric): "
+					<< endl;
+			cin >> tileRow >> tileCol;
 
-		//player places tile, must print grid
+			//player places tile
+			board.placeTile(tileRow, tileCol, 'A');
 
-		//check if game is complete
+			//print new board
+			board.printBoard();
 
-		// next player's turn
+			//check if game is complete
 
-		// check if players want to play again
-		cout << "Do you want to play again? (yes/no)" << endl;
-		getline(cin, continueResponse);
-		while (!(!continueResponse.compare("yes")
-				|| !continueResponse.compare("no"))) {
-			if (continueResponse.compare("yes")) {
-				playAgain = true;
-			} else if (continueResponse.compare("no")) {
-				playAgain = false;
+			// next player's turn
+			if (playerTurn == numPlayers) {
+				playerTurn = 1;
 			} else {
+				playerTurn++;
+			}
+
+		}
+		// check if players want to play again
+		cout << "Do you want to play again? (yes = 1/ no = 0)" << endl;
+		cin >> continueResponse;
+
+		if (continueResponse == 1) {
+			cout << "response yes" << endl;
+			playAgain = true;
+		} else if (continueResponse == 0) {
+			cout << "response no" << endl;
+			playAgain = false;
+		} else {
+			while (!(continueResponse == 1 || continueResponse == 0)) {
 				cout << "Invalid response: " << continueResponse
 						<< "; select yes or no" << endl;
-				getline(cin, continueResponse);
+				cin >> continueResponse;
 			}
 		}
 
-	} while (!isFinished && playAgain);
+	} while (playAgain);
 
+	/*DO NOT DELETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	/*
 	 cout << static_cast<int>('a') << " " << static_cast<int>('z') << endl;
 	 int index = 1;

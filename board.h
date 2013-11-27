@@ -74,11 +74,12 @@ template<class T> vector<T> Board<T>::getAdjacent(char row, int col) { // up to 
 template<class T> void Board<T>::printBoard() {
 	T tile;
 	for (int i = 0; i < rows; i++) {
+		cout << "[ ";
 		for (int j = 0; j < cols; j++) {
-			getTileAt(tile, rows + 97, cols);
+			getTileAt(tile, i + 97, j);
 			cout << setw(5) << tile << " ";
 		}
-		cout << endl;
+		cout << "]" << endl;
 	}
 
 }
