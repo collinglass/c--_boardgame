@@ -22,10 +22,11 @@ public:
 
 template<class T> unsigned int Group<T>::counter = 0;
 
-template<class T> Group<T>::Group(T _symbol){
+template<class T> Group<T>::Group(T _symbol) {
 	symbol = _symbol;
-	//size = 1;
-	//age = age + counter;
+	size = 1;
+	age = age + counter;
+	name = _symbol;
 }
 
 template<class T> std::string Group<T>::getName(){

@@ -42,14 +42,14 @@ template<class T> void BoardGame<T>::playAt(char row, int col) {
 					for( iter = mapT.begin(); iter != mapT.end(); iter++) {
     					// iterator->first = T;
     					// iterator->second = Group<T>*;
-    					//if ( temp == iterator->first ) {
-    					//	if( groupTemp->getSize() < iterator->second->getSize() ) {
-    					//		groupTemp = iterator->second;
-    					//	}
-
+    					if ( temp == iter->first ) {
+    						if( groupTemp->getSize() < iter->second->getSize() ) {
+    							groupTemp = iter->second;
+    						}
+    						
     						//sizeTemp[i] = groupTemp->getSize;
 
-    					//}
+    					}
 					}
 				}
 			}
