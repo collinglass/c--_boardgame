@@ -29,6 +29,7 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 
 			// add to mapT
 			T groupT = group->getDummy();
+			group->addPosition(_position);
 			
 			if( mapT.size() == 0 ) {
 				mapT.insert ( std::pair<T,Group<T>*>(groupT,group) );
@@ -38,26 +39,23 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 				Group<T>* largestGroup = new Group<T>(' ');
 				vector<Group<T>*> vectorGroup;
 				bool isNotEmpty = false;
+				int count = 0;
 				for ( int i = 0; i < vectorAdj.size(); i++ ) {
 					T temp = vectorAdj.at(i);
 					typename std::map<T,Group<T>*>::iterator iter;
 					if (temp != 0) {
 						isNotEmpty = true;
 						for( iter = mapT.begin(); iter != mapT.end(); iter++) {
-							cout << "buzz" << endl;
     						// iterator->first = T;
     						// iterator->second = Group<T>*;
     						if ( temp == iter->first ) {
+    							
     							vectorGroup.push_back(iter->second);
-    							//cout << vectorGroup << endl;
+    							count++;
     							if( largestGroup->getSize() < iter->second->getSize() ) {
-    								cout << "This is: " << iter->second->getName() << "." << endl;
     								largestGroup = iter->second;
     							} else if ( largestGroup->getSize() == iter->second->getSize() ) {
-    								cout << "This is iterator age: " << iter->second->getAge() << "." << endl;
-    								cout << "This is largestGroup age: " << largestGroup->getAge() << "." << endl;
-    								if ( largestGroup->getAge() > iter->second->getAge() ) {			// may cause problems
-    									cout << "This is3: " << iter->second->getName() << "." << endl;
+    								if ( largestGroup->getAge() > iter->second->getAge() ) {
     									largestGroup = iter->second;
     								}
     							}
@@ -68,20 +66,20 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 				if( isNotEmpty == 0 ) {
 					mapT.insert ( std::pair<T,Group<T>*>(groupT,group) );
 				} else {
-					largestGroup->addPosition(_position);	// not causing Segmentation Fault
+					largestGroup->addPosition(_position);
 					groupT = largestGroup->getSymbol();
-					cout << largestGroup->getName() << "no" << endl;
     				delete group;
     				Group<T>* tempGroup;
-    				for ( int i = 0; i < vectorGroup.size(); i++ ) { // vectorGroup not causing Segmentation Fault
-    					
-    					if ( vectorGroup.at(i)->getName() != largestGroup->getName() ) {
-    						cout << vectorGroup.at(i)->getName() << "yes" << endl;
-    						cout << largestGroup->getName() << "no" << endl;
+    				Position tempPosition;
+    				for ( int i = 0; i < vectorGroup.size(); i++ ) {
+    					if ( vectorGroup.at(i)->getSymbol() != largestGroup->getSymbol() ) {
     						tempGroup = vectorGroup.at(i);
     						for ( int j = 0; j < tempGroup->getSize(); j++ ) {
-    							largestGroup->addPosition(tempGroup->getPosition(i));
+    							tempPosition = tempGroup->getPosition(j);
+    							largestGroup->addPosition(tempPosition);
     							groupT = largestGroup->getSymbol();
+    							board.placeTile(tempPosition.row, tempPosition.col, groupT);
+    							
     						}
     						delete tempGroup;
     					}

@@ -33,9 +33,8 @@ template<class T> unsigned int Group<T>::counter = 0;
 
 template<class T> Group<T>::Group(T _symbol) {
 	symbol = _symbol;
-	size = 1;
+	size = 0;
 	age = 1 + counter;
-	name = _symbol;
 }
 
 template<class T> std::string Group<T>::getName(){
@@ -66,6 +65,7 @@ template<class T> T Group<T>::getSymbol(){
 
 template<class T> T Group<T>::getDummy(){
 	symbol = symbol + counter;
+	name = symbol;
 	counter++;
 	return symbol;
 }
