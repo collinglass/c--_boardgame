@@ -26,12 +26,14 @@ int main() {
 			cin >> numPlayers;
 			if ( numPlayers == 0 ) {
 				cout << "No Ghosts allowed!";
+				cout << endl << "Game can only be played with 3-6 players!" << endl;
 			} else if ( numPlayers == 1 ) {
 				cout << "This isn't solitaire! Get 2 to 5 more people!";
+				cout << endl << "Game can only be played with 3-6 players!" << endl;
 			} else if ( numPlayers == 2 ) {
 				cout << "This is romantic, unfortunately get another person! or 2 or 3 or 4!";
+				cout << endl << "Game can only be played with 3-6 players!" << endl;
 			}
-			cout << endl << "Game can only be played with 3-6 players!" << endl;
 		}
 		cout << numPlayers;
 		cout << endl
@@ -55,6 +57,13 @@ int main() {
 			boardgame.playAt(_position);
 
 			//check if game is complete
+			bool win = false;
+			win = boardgame.checkWin();
+			if ( win == true ) {
+				isFinished = true;
+				cout << "Player " << playerTurn << " is the winner!" << endl;
+			}
+			
 
 			// next player's turn
 			if (playerTurn == numPlayers) {
@@ -67,9 +76,9 @@ int main() {
 		// check if players want to play again
 		cout << "Do you want to play again? (yes = 1/ no = 0)" << endl;
 		cin >> continueResponse;
-
 		if (continueResponse == 1) {
 			cout << "response yes" << endl;
+			isFinished = false;
 			playAgain = true;
 		} else if (continueResponse == 0) {
 			cout << "response no" << endl;

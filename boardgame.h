@@ -13,6 +13,7 @@ class BoardGame {
 public:
 	BoardGame(char row, int col, T _symbol);
 	void playAt(Position _position);
+	bool checkWin();
 };
 
 template<class T> BoardGame<T>::BoardGame(char row, int col, T _symbol) : board(row, col) {
@@ -97,3 +98,17 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 		cerr << exMsg << endl;
 	}
 }
+
+template<class T> bool BoardGame<T>::checkWin() {
+	bool result;
+	typename std::map<T,Group<T>*>::iterator iter;
+	for( iter = mapT.begin(); iter != mapT.end(); iter++) {
+		if ( iter->second->getSize() >= 41 ) {
+			result = true;
+		}
+	}
+	return result;
+}
+
+
+
