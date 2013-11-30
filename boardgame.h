@@ -49,10 +49,10 @@ template<class T> void BoardGame<T>::playAt(char row, int col) {
 
     						//sizeTemp[i] = groupTemp->getSize;
 
-    				}
+    					//}
+					}
 				}
 			}
-		}
 
 
 
