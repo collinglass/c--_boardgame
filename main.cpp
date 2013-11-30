@@ -40,8 +40,7 @@ int main() {
 		cout << numRows << " " << numCols << endl;
 
 		BoardGame<char> boardgame(numRows, numCols, 'A');
-		break;
-		/*
+
 		//start player's turn
 		while (!isFinished) {
 			cout << "It's your turn, Player " << playerTurn
@@ -50,11 +49,7 @@ int main() {
 			cin >> tileRow >> tileCol;
 
 			//player places tile
-			element = group.getDummy();
-			board.placeTile(tileRow, tileCol, element);
-
-			//print board
-			board.printBoard();
+			boardgame.playAt(tileRow, tileCol);
 
 			//check if game is complete
 
@@ -83,7 +78,6 @@ int main() {
 				cin >> continueResponse;
 			}
 		}
-	*/
 	} while (playAgain);
 
 	/*DO NOT DELETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/

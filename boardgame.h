@@ -20,7 +20,9 @@ template<class T> BoardGame<T>::BoardGame(char row, int col, T _symbol) : board(
 
 template<class T> void BoardGame<T>::playAt(char row, int col) {
 	try {
-		if (board.getTileAt(row, col) == 0) {
+		T tempTile;
+		board.getTileAt(tempTile, row, col);
+		if (tempTile == 0) {
 			Group<T>* group = new Group<T>(symbol);
 
 			// add to mapT
