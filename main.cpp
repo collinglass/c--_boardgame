@@ -49,7 +49,10 @@ int main() {
 			cin >> tileRow >> tileCol;
 
 			//player places tile
-			boardgame.playAt(tileRow, tileCol);
+			Position _position;
+			_position.row = tileRow;
+			_position.col = tileCol;
+			boardgame.playAt(_position);
 
 			//check if game is complete
 

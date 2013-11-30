@@ -22,6 +22,7 @@ public:
 	Group(T _symbol);
 	std::string getName();
 	unsigned int getSize();
+	Position getPosition(int i);
 	void addPosition(Position _position);
 	unsigned int getAge();
 	T getSymbol();
@@ -43,6 +44,10 @@ template<class T> std::string Group<T>::getName(){
 
 template<class T> unsigned int Group<T>::getSize(){
 	return size;
+}
+
+template<class T> Position Group<T>::getPosition(int i){
+	return positions.at(i);
 }
 
 template<class T> void Group<T>::addPosition(Position _position){
