@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <iterator>
 
 template<class T>
 class BoardGame {
@@ -31,22 +32,27 @@ template<class T> void BoardGame<T>::playAt(char row, int col) {
 			
 			// Get Adjacent tiles, if there are any adjacent tiles we need to figure which one is the biggest
 			vector<T> vectorAdj = board.getAdjacent(row, col);
-			unsigned int sizeTemp[] = {0,0,0,0};
-			for ( int i = 0; i < 4; i++ ) {
+			//unsigned int sizeTemp[] = {0,0,0,0};
+
+			for ( int i = 0; i < vectorAdj.size(); i++ ) {
 				T temp = vectorAdj.at(i);
+				Group<T>* groupTemp = new Group<T>(' ');
+				typename std::map<T,Group<T>*>::iterator iter;
 				if (temp != 0) {
-					typedef std::map<T, Group<T>*>::iterator it_type;
-					for(it_type iterator = mapT.begin(); iterator != mapT.end(); iterator++) {
+					for( iter = mapT.begin(); iter != mapT.end(); iter++) {
     					// iterator->first = T;
     					// iterator->second = Group<T>*;
-    					if ( temp == iterator->first ) {
-    						Group<T>* groupTemp = iterator->second;
-    						sizeTemp[i] = groupTemp->getSize;
-    					}
-					}
+    					//if ( temp == iterator->first ) {
+    					//	if( groupTemp->getSize() < iterator->second->getSize() ) {
+    					//		groupTemp = iterator->second;
+    					//	}
+
+    						//sizeTemp[i] = groupTemp->getSize;
+
+    				}
 				}
 			}
-			
+		}
 
 
 
