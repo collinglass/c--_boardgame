@@ -14,6 +14,8 @@ int main() {
 	int tileCol;
 	int continueResponse = 0;
 	char element;
+	const char* exMsg;
+
 
 	cout << "Welcome to the C++ Board Game!!" << endl << endl;
 
@@ -37,7 +39,7 @@ int main() {
 		}
 		cout << numPlayers;
 		cout << endl
-				<< "Enter dimensions of the board, separated by spaces (rows cols): ";
+		<< "Enter dimensions of the board, separated by spaces (rows cols): ";
 		cin >> numRows >> numCols;
 		cout << numRows << " " << numCols << endl;
 
@@ -45,33 +47,38 @@ int main() {
 
 		//start player's turn
 		while (!isFinished) {
+			exMsg = "";
 			cout << "It's your turn, Player " << playerTurn
-					<< "! Enter a tile coordinate (Alpha_Lower Numeric): "
-					<< endl;
+			<< "! Enter a tile coordinate (Alpha_Lower Numeric): "
+			<< endl;
 			cin >> tileRow >> tileCol;
+			if ( (tileRow >= 97 && tileRow <= 122) && (tileCol >= 0 && tileCol < numCols) ) {
+				//player places tile
+				Position _position;
+				_position.row = tileRow;
+				_position.col = tileCol;
+				exMsg = boardgame.playAt(_position);
 
-			//player places tile
-			Position _position;
-			_position.row = tileRow;
-			_position.col = tileCol;
-			boardgame.playAt(_position);
-
-			//check if game is complete
-			bool win = false;
-			win = boardgame.checkWin();
-			if ( win == true ) {
-				isFinished = true;
-				cout << "Player " << playerTurn << " is the winner!" << endl;
-			}
-			
-
-			// next player's turn
-			if (playerTurn == numPlayers) {
-				playerTurn = 1;
+				//check if game is complete
+				bool win = false;
+				win = boardgame.checkWin();
+				if ( win == true ) {
+					isFinished = true;
+					cout << "Player " << playerTurn << " is the winner!" << endl;
+				}
 			} else {
-				playerTurn++;
+				exMsg = "Illegal input!";
 			}
-
+			if ( exMsg != "" ) {
+				cerr << exMsg << endl;
+			} else {
+				// next players turn
+				if (playerTurn == numPlayers) {
+					playerTurn = 1;
+				} else {
+					playerTurn++;
+				}
+			}
 		}
 		// check if players want to play again
 		cout << "Do you want to play again? (yes = 1/ no = 0)" << endl;
@@ -86,7 +93,7 @@ int main() {
 		} else {
 			while (!(continueResponse == 1 || continueResponse == 0)) {
 				cout << "Invalid response: " << continueResponse
-						<< "; select yes or no" << endl;
+				<< "; select yes or no" << endl;
 				cin >> continueResponse;
 			}
 		}
@@ -137,4 +144,4 @@ int main() {
 	 Group<int> group;
 	 cout << "Dummy: " << group.getDummy() << endl;
 	 */
-}
+	}

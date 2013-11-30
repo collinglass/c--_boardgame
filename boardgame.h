@@ -12,7 +12,7 @@ class BoardGame {
 	T symbol;
 public:
 	BoardGame(char row, int col, T _symbol);
-	void playAt(Position _position);
+	const char* playAt(Position _position);
 	bool checkWin();
 };
 
@@ -21,8 +21,8 @@ template<class T> BoardGame<T>::BoardGame(char row, int col, T _symbol) : board(
 	board.printBoard();
 }
 
-template<class T> void BoardGame<T>::playAt(Position _position) {
-	try {
+template<class T> const char* BoardGame<T>::playAt(Position _position) {
+		const char* exMsg = "";
 		T tempTile;
 		board.getTileAt(tempTile, _position.row, _position.col);
 		if (tempTile == 0) {
@@ -92,11 +92,9 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 			board.placeTile(_position.row, _position.col, groupT);
 			board.printBoard();
 		} else {
-			throw "Illegal Move: selected tile is not empty!";
+			exMsg = "Illegal Move: selected tile is not empty!";
 		}
-	} catch (const char* exMsg) {
-		cerr << exMsg << endl;
-	}
+		return exMsg;
 }
 
 template<class T> bool BoardGame<T>::checkWin() {
