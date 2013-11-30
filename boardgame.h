@@ -2,6 +2,7 @@
 #include "group.h"
 #include <iostream>
 #include <map>
+#include <vector>
 
 template<class T>
 class BoardGame {
@@ -28,6 +29,10 @@ template<class T> void BoardGame<T>::playAt(char row, int col) {
 			// add to mapT
 			T groupT = group->getDummy();
 			
+			// Get Adjacent tiles, if there are any adjacent tiles we need to figure which one is the biggest
+			vector<T> vectorAdj = board.getAdjacent(row, col);
+
+
 			board.placeTile(row, col, groupT);
 			board.printBoard();
 		} else {
