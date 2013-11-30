@@ -9,14 +9,14 @@ class Board {
 	int rows;
 	int cols;
 public:
-	Board(int rows, int cols);
+	Board(char rows, int cols);
 	void placeTile(char row, int col, T element);
 	void getTileAt(T& tile, char row, int col);
 	vector<T> getAdjacent(char row, int col);
 	void printBoard();
 };
 
-template<class T> Board<T>::Board(int _rows, int _cols) :
+template<class T> Board<T>::Board(char _rows, int _cols) :
 		rows(_rows), cols(_cols) {
 	tiles = new T*[_rows];
 	for (int i = 0; i < _rows; i++) {
