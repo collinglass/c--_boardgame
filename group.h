@@ -44,6 +44,6 @@ template<class T> T Group<T>::getSymbol(){
 
 template<class T> T Group<T>::getDummy(){
 	symbol = symbol + counter;
-	counter = 1;
+	counter++;
 	return symbol;
 }

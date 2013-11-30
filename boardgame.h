@@ -27,6 +27,7 @@ template<class T> void BoardGame<T>::playAt(char row, int col) {
 
 			// add to mapT
 			T groupT = group->getDummy();
+			
 			board.placeTile(row, col, groupT);
 			board.printBoard();
 		} else {
