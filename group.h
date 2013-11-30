@@ -25,7 +25,7 @@ template<class T> unsigned int Group<T>::counter = 0;
 template<class T> Group<T>::Group(T _symbol) {
 	symbol = _symbol;
 	size = 1;
-	age = age + counter;
+	age = 1 + counter;
 	name = _symbol;
 }
 
