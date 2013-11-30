@@ -48,13 +48,16 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
     						// iterator->first = T;
     						// iterator->second = Group<T>*;
     						if ( temp == iter->first ) {
-    							cout << "fizz" << endl;
     							vectorGroup.push_back(iter->second);
     							//cout << vectorGroup << endl;
     							if( largestGroup->getSize() < iter->second->getSize() ) {
+    								cout << "This is: " << iter->second->getName() << "." << endl;
     								largestGroup = iter->second;
     							} else if ( largestGroup->getSize() == iter->second->getSize() ) {
-    								if ( largestGroup->getAge() <= iter->second->getAge() ) {			// may cause problems
+    								cout << "This is iterator age: " << iter->second->getAge() << "." << endl;
+    								cout << "This is largestGroup age: " << largestGroup->getAge() << "." << endl;
+    								if ( largestGroup->getAge() > iter->second->getAge() ) {			// may cause problems
+    									cout << "This is3: " << iter->second->getName() << "." << endl;
     									largestGroup = iter->second;
     								}
     							}
@@ -65,16 +68,20 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 				if( isNotEmpty == 0 ) {
 					mapT.insert ( std::pair<T,Group<T>*>(groupT,group) );
 				} else {
-
-					largestGroup->addPosition(_position);
-					cout << "fizzyy" << endl;
+					largestGroup->addPosition(_position);	// not causing Segmentation Fault
+					groupT = largestGroup->getSymbol();
+					cout << largestGroup->getName() << "no" << endl;
     				delete group;
     				Group<T>* tempGroup;
-    				for ( int i = 0; i < vectorGroup.size(); i++ ) {
-    					if ( vectorGroup.at(i) != largestGroup ) {
+    				for ( int i = 0; i < vectorGroup.size(); i++ ) { // vectorGroup not causing Segmentation Fault
+    					
+    					if ( vectorGroup.at(i)->getName() != largestGroup->getName() ) {
+    						cout << vectorGroup.at(i)->getName() << "yes" << endl;
+    						cout << largestGroup->getName() << "no" << endl;
     						tempGroup = vectorGroup.at(i);
     						for ( int j = 0; j < tempGroup->getSize(); j++ ) {
     							largestGroup->addPosition(tempGroup->getPosition(i));
+    							groupT = largestGroup->getSymbol();
     						}
     						delete tempGroup;
     					}
