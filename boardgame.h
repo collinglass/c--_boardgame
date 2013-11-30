@@ -31,17 +31,23 @@ template<class T> void BoardGame<T>::playAt(char row, int col) {
 			
 			// Get Adjacent tiles, if there are any adjacent tiles we need to figure which one is the biggest
 			vector<T> vectorAdj = board.getAdjacent(row, col);
+			unsigned int sizeTemp[] = {0,0,0,0};
 			for ( int i = 0; i < 4; i++ ) {
 				T temp = vectorAdj.at(i);
 				if (temp != 0) {
 					typedef std::map<T, Group<T>*>::iterator it_type;
 					for(it_type iterator = mapT.begin(); iterator != mapT.end(); iterator++) {
-    					iterator->first = T;
-    					iterator->second = Group<T>*;
-    					
+    					// iterator->first = T;
+    					// iterator->second = Group<T>*;
+    					if ( temp == iterator->first ) {
+    						Group<T>* groupTemp = iterator->second;
+    						sizeTemp[i] = groupTemp->getSize;
+    					}
 					}
 				}
 			}
+			
+
 
 
 			board.placeTile(row, col, groupT);
