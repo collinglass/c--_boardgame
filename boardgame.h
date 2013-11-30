@@ -30,47 +30,57 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 			// add to mapT
 			T groupT = group->getDummy();
 			
-			// Get Adjacent tiles, if there are any adjacent tiles we need to figure which one is the biggest
-			vector<T> vectorAdj = board.getAdjacent(_position.row, _position.col);
-			Group<T>* largestGroup = new Group<T>(' ');
-			vector<Group<T>*> vectorGroup;
-
-			for ( int i = 0; i < vectorAdj.size(); i++ ) {
-				T temp = vectorAdj.at(i);
-				typename std::map<T,Group<T>*>::iterator iter;
-				if (temp != 0) {
-					for( iter = mapT.begin(); iter != mapT.end(); iter++) {
-						cout << "buzz" << endl;
-    					// iterator->first = T;
-    					// iterator->second = Group<T>*;
-    					if ( temp == iter->first ) {
-    						cout << "fizz" << endl;
-    						vectorGroup.push_back(iter->second);
-    						//cout << vectorGroup << endl;
-    						if( largestGroup->getSize() < iter->second->getSize() ) {
-    							largestGroup = iter->second;
-    						} else if ( largestGroup->getSize() == iter->second->getSize() ) {
-    							if ( largestGroup->getAge() <= iter->second->getAge() ) {			// may cause problems
+			if( mapT.size() == 0 ) {
+				mapT.insert ( std::pair<T,Group<T>*>(groupT,group) );
+			} else {
+				// Get Adjacent tiles, if there are any adjacent tiles we need to figure which one is the biggest
+				vector<T> vectorAdj = board.getAdjacent(_position.row, _position.col);
+				Group<T>* largestGroup = new Group<T>(' ');
+				vector<Group<T>*> vectorGroup;
+				bool isNotEmpty = false;
+				for ( int i = 0; i < vectorAdj.size(); i++ ) {
+					T temp = vectorAdj.at(i);
+					typename std::map<T,Group<T>*>::iterator iter;
+					if (temp != 0) {
+						isNotEmpty = true;
+						for( iter = mapT.begin(); iter != mapT.end(); iter++) {
+							cout << "buzz" << endl;
+    						// iterator->first = T;
+    						// iterator->second = Group<T>*;
+    						if ( temp == iter->first ) {
+    							cout << "fizz" << endl;
+    							vectorGroup.push_back(iter->second);
+    							//cout << vectorGroup << endl;
+    							if( largestGroup->getSize() < iter->second->getSize() ) {
     								largestGroup = iter->second;
+    							} else if ( largestGroup->getSize() == iter->second->getSize() ) {
+    								if ( largestGroup->getAge() <= iter->second->getAge() ) {			// may cause problems
+    									largestGroup = iter->second;
+    								}
     							}
     						}
-    					}
+						}
 					}
 				}
-			}
-			largestGroup->addPosition(_position);
-    		delete group;
-    		Group<T>* tempGroup;
-    		for ( int i = 0; i < vectorGroup.size(); i++ ) {
-    			if ( vectorGroup.at(i) != largestGroup ) {
-    				tempGroup = vectorGroup.at(i);
-    				for ( int j = 0; j < tempGroup->getSize(); j++ ) {
-    					largestGroup->addPosition(tempGroup->getPosition(i));
-    				}
-    				delete tempGroup;
-    			}
-    		}
+				if( isNotEmpty == 0 ) {
+					mapT.insert ( std::pair<T,Group<T>*>(groupT,group) );
+				} else {
 
+					largestGroup->addPosition(_position);
+					cout << "fizzyy" << endl;
+    				delete group;
+    				Group<T>* tempGroup;
+    				for ( int i = 0; i < vectorGroup.size(); i++ ) {
+    					if ( vectorGroup.at(i) != largestGroup ) {
+    						tempGroup = vectorGroup.at(i);
+    						for ( int j = 0; j < tempGroup->getSize(); j++ ) {
+    							largestGroup->addPosition(tempGroup->getPosition(i));
+    						}
+    						delete tempGroup;
+    					}
+    				}
+				}
+    		}
 
 
 			board.placeTile(_position.row, _position.col, groupT);
