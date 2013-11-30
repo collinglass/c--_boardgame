@@ -46,7 +46,7 @@ template<class T> void BoardGame<T>::playAt(char row, int col) {
     						if( groupTemp->getSize() < iter->second->getSize() ) {
     							groupTemp = iter->second;
     						}
-    						
+    						//groupTemp->addPosition(...);
     						//sizeTemp[i] = groupTemp->getSize;
 
     					}
