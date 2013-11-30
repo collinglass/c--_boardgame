@@ -40,12 +40,19 @@ template<class T> void BoardGame<T>::playAt(Position _position) {
 				typename std::map<T,Group<T>*>::iterator iter;
 				if (temp != 0) {
 					for( iter = mapT.begin(); iter != mapT.end(); iter++) {
+						cout << "buzz" << endl;
     					// iterator->first = T;
     					// iterator->second = Group<T>*;
     					if ( temp == iter->first ) {
+    						cout << "fizz" << endl;
     						vectorGroup.push_back(iter->second);
+    						//cout << vectorGroup << endl;
     						if( largestGroup->getSize() < iter->second->getSize() ) {
     							largestGroup = iter->second;
+    						} else if ( largestGroup->getSize() == iter->second->getSize() ) {
+    							if ( largestGroup->getAge() <= iter->second->getAge() ) {			// may cause problems
+    								largestGroup = iter->second;
+    							}
     						}
     					}
 					}
