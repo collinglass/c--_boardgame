@@ -23,8 +23,6 @@ To place a tile, write the coordinate which will be a letter for row followed by
 
 e.g. "a 4"
 
-### To Do ###
+### Advanced Version
 
-Complete board.h
-
-Everything else...
+An (to date: incomplete) advanced version can be found at this repo: https://github.com/OpenSource16/c--_boardgame_advance
