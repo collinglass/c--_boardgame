@@ -38,12 +38,8 @@ int main() {
 			}
 		}
 		cout << numPlayers;
-		cout << endl
-		<< "Enter dimensions of the board, separated by spaces (rows cols): ";
-		cin >> numRows >> numCols;
-		cout << numRows << " " << numCols << endl;
 
-		BoardGame<char> boardgame(numRows, numCols, 'A');
+		BoardGame<char> boardgame(9, 12, 'A');
 
 		//start player's turn
 		while (!isFinished) {
